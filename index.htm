@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Happy Raksha Bandhan Behna! ❤️</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&family=Rozha+One&family=Yatra+One&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            saffron: '#f25c05',
+            marigold: '#f59e0b',
+            crimson: '#880826',
+            festiveGold: '#d4af37',
+            silkCream: '#fffbf5',
+            warmBeige: '#fbf4ea'
+          },
+          fontFamily: {
+            festive: ['Rozha One', 'serif'],
+            hindi: ['Yatra One', 'cursive'],
+            script: ['Great Vibes', 'cursive'],
+            cinzel: ['Cinzel', 'serif'],
+            sans: ['Montserrat', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @keyframes flameGlow {
+      0%, 100% { transform: scale(1) rotate(-1deg); filter: drop-shadow(0 0 8px #f59e0b); }
+      50% { transform: scale(1.15) rotate(2deg); filter: drop-shadow(0 0 16px #f97316); }
+    }
+    .flame-animation {
+      animation: flameGlow 1.8s infinite ease-in-out;
+      transform-origin: bottom center;
+    }
+    #festive-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 30;
+    }
+    .scratch-canvas {
+      touch-action: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body class="bg-silkCream text-stone-800 font-sans antialiased overflow-x-hidden selection:bg-marigold selection:text-white">
+
+  <!-- Floating Particles Canvas -->
+  <canvas id="festive-canvas"></canvas>
+
+  <!-- Background Music Player -->
+  <audio id="bg-audio" loop preload="auto">
+    <source src="https://actions.google.com/sounds/v1/ambiences/wind_chimes.ogg" type="audio/ogg">
+  </audio>
+
+  <!-- FLOATING MUSIC TOGGLE -->
+  <button id="music-btn" onclick="toggleAudio()" class="fixed bottom-5 right-5 z-40 bg-crimson text-festiveGold p-3.5 rounded-full shadow-2xl border border-festiveGold/40 flex items-center justify-center transition-transform active:scale-95 text-lg">
+    🎵
+  </button>
+
+  <!-- ==================== 1. WELCOME SCREEN ==================== -->
+  <div id="welcome-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-crimson to-[#420412] p-4 transition-all duration-700">
+    <div class="relative w-full max-w-sm bg-white/10 backdrop-blur-md border border-festiveGold/40 rounded-3xl p-8 text-center text-white shadow-2xl flex flex-col items-center">
+      
+      <div class="w-20 h-20 rounded-full bg-festiveGold/20 border-2 border-festiveGold flex items-center justify-center mb-5 animate-pulse text-3xl">
+        🪢
+      </div>
+
+      <p class="font-hindi text-lg text-festiveGold tracking-wider mb-1">रक्षाबंधन स्पेशल</p>
+      <h1 class="font-festive text-3xl font-bold mb-3 tracking-wide">For The World's Best Sister ❤️</h1>
+      <p class="text-xs text-stone-200 font-light leading-relaxed mb-8">
+        Hazaaron ladaiyan, TV remote ke jhagde, aur dher saara pyaar... Yeh chhota sa digital surprise tumhare liye!
+      </p>
+
+      <!-- Direct Inline Onclick ensures it opens instantly -->
+      <button onclick="openGift()" class="w-full py-4 bg-gradient-to-r from-festiveGold to-yellow-500 text-crimson font-bold text-sm uppercase tracking-widest rounded-xl shadow-2xl hover:brightness-110 active:scale-95 transition-all">
+        Open My Gift 🎁
+      </button>
+
+      <span class="text-[10px] text-festiveGold/70 mt-4 tracking-widest uppercase font-cinzel">From: Tera Pyaara Bhai</span>
+    </div>
+  </div>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main class="max-w-md mx-auto min-h-screen bg-white shadow-2xl relative border-x border-marigold/20 pb-20">
+
+    <header class="pt-10 pb-6 px-6 text-center bg-gradient-to-b from-warmBeige to-white border-b border-stone-100">
+      <span class="text-[10px] uppercase font-bold tracking-[0.3em] text-saffron bg-saffron/10 px-3 py-1 rounded-full">Bond of Protection & Love</span>
+      <h1 class="font-festive text-4xl text-crimson font-bold mt-3 mb-1">Happy Raksha Bandhan</h1>
+      <p class="font-script text-2xl text-marigold">To My Lovely Sister</p>
+      <div class="my-4 flex items-center justify-center gap-3">
+        <span class="h-[1px] w-12 bg-festiveGold/40"></span>
+        <span class="text-festiveGold text-sm">✦</span>
+        <span class="h-[1px] w-12 bg-festiveGold/40"></span>
+      </div>
+      <p class="text-xs text-stone-500 max-w-xs mx-auto">Aaj ke din door ho ya paas, humara connection hamesha special rahega!</p>
+    </header>
+
+    <!-- 2. VIRTUAL POOJA THALI -->
+    <section class="my-8 px-6 text-center">
+      <div class="bg-gradient-to-br from-warmBeige via-white to-warmBeige p-6 rounded-3xl border border-festiveGold/40 shadow-sm relative overflow-hidden">
+        <span class="text-[10px] uppercase tracking-[0.2em] text-saffron font-bold">Virtual Pooja</span>
+        <h2 class="font-festive text-2xl text-crimson font-bold mt-1 mb-2">Virtual Pooja Thali</h2>
+        <p class="text-xs text-stone-500 mb-6">Agar main door hoon, toh yahan se virtual tilak lagao aur Rakhi baandho!</p>
+
+        <div class="relative w-64 h-64 mx-auto rounded-full bg-gradient-to-tr from-festiveGold/30 via-yellow-100 to-festiveGold/50 p-2 shadow-xl border-4 border-festiveGold flex items-center justify-center">
+          <!-- Diya -->
+          <div class="absolute top-6 flex flex-col items-center">
+            <div class="w-4 h-6 bg-gradient-to-t from-orange-500 to-yellow-300 rounded-full flame-animation"></div>
+            <div class="w-8 h-4 bg-amber-800 rounded-b-full shadow"></div>
+          </div>
+          <div class="absolute left-7 top-24 text-center">
+            <div class="w-8 h-8 rounded-full bg-red-600 border border-festiveGold shadow-inner flex items-center justify-center text-[10px] text-white font-bold">रोली</div>
+          </div>
+          <div class="absolute right-7 top-24 text-center">
+            <div class="w-8 h-8 rounded-full bg-stone-100 border border-festiveGold shadow-inner flex items-center justify-center text-[9px] text-stone-700 font-bold">अक्षत</div>
+          </div>
+          <div class="absolute bottom-6 flex gap-1 items-center">
+            <div class="w-6 h-6 bg-stone-200 rotate-45 border border-festiveGold shadow-sm flex items-center justify-center">
+              <span class="text-[8px] text-stone-500 -rotate-45">✨</span>
+            </div>
+            <div class="w-6 h-6 bg-stone-200 rotate-45 border border-festiveGold shadow-sm flex items-center justify-center">
+              <span class="text-[8px] text-stone-500 -rotate-45">✨</span>
+            </div>
+          </div>
+
+          <!-- The Rakhi -->
+          <div id="rakhi-element" class="relative z-10 w-24 h-24 rounded-full bg-crimson border-2 border-festiveGold shadow-2xl flex items-center justify-center transition-transform duration-500">
+            <div class="w-16 h-16 rounded-full border border-dashed border-festiveGold flex items-center justify-center text-center p-1">
+              <span class="text-xs font-hindi text-festiveGold font-bold">रक्षा सूत्र</span>
+            </div>
+            <div class="absolute -left-10 w-10 h-1 bg-gradient-to-r from-transparent to-red-500"></div>
+            <div class="absolute -right-10 w-10 h-1 bg-gradient-to-l from-transparent to-red-500"></div>
+          </div>
+        </div>
+
+        <button onclick="tieRakhiAction()" id="tie-rakhi-btn" class="mt-6 px-6 py-2.5 bg-crimson text-festiveGold font-bold text-xs uppercase tracking-wider rounded-full shadow hover:bg-red-950 transition-all active:scale-95 mx-auto block">
+          Tie Rakhi & Do Aarti 🪢
+        </button>
+        <p id="rakhi-status" class="text-xs font-medium text-emerald-700 mt-2 hidden">✨ Aarti Sampann hui & Rakhi bandh gayi! Shubh Raksha Bandhan!</p>
+      </div>
+    </section>
+
+    <!-- 3. MEMORIES SLIDER -->
+    <section class="my-10 px-6 text-center">
+      <span class="text-[10px] uppercase tracking-[0.2em] text-saffron font-bold">Nostalgia Lane</span>
+      <h2 class="font-festive text-3xl text-crimson font-bold mt-1 mb-6">Bachpan Ke Kisse</h2>
+
+      <div class="relative bg-white p-4 pb-8 rounded-2xl shadow-xl border border-stone-200 max-w-xs mx-auto">
+        <div class="w-full h-72 rounded-xl overflow-hidden bg-stone-100 relative">
+          <img id="memory-img" src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=700&q=80" alt="Sibling Memory" class="w-full h-full object-cover transition-opacity duration-300" />
+        </div>
+        
+        <p id="memory-tag" class="font-script text-2xl text-stone-800 mt-4">Partner in crime since day 1 🤜🤛</p>
+        <p id="memory-desc" class="text-[11px] text-stone-500 px-2 mt-1">Chahe kitni bhi ladai ho, aakhiri me pizza ka aakhri slice tumhe hi deta hoon.</p>
+
+        <button onclick="prevMemory()" class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 shadow text-stone-700 flex items-center justify-center text-lg font-bold">‹</button>
+        <button onclick="nextMemory()" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 shadow text-stone-700 flex items-center justify-center text-lg font-bold">›</button>
+      </div>
+    </section>
+
+    <!-- 4. SCRATCH CARDS -->
+    <section class="my-10 px-6 text-center">
+      <span class="text-[10px] uppercase tracking-[0.2em] text-saffron font-bold">Scratch & Win</span>
+      <h2 class="font-festive text-3xl text-crimson font-bold mt-1 mb-2">Bhai Ke Vachan (Coupons)</h2>
+      <p class="text-xs text-stone-500 mb-6">Card scratch karo aur apna gift claim karo!</p>
+
+      <div class="space-y-4 max-w-xs mx-auto">
+        <div class="relative h-28 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-between px-5 shadow-inner overflow-hidden">
+          <div class="text-left">
+            <span class="text-[9px] uppercase font-bold text-saffron tracking-wider">Coupon #1</span>
+            <h3 class="font-serif font-bold text-base text-stone-800">Late Night Ice Cream 🍨</h3>
+            <p class="text-[11px] text-stone-500">Whenever you crave, no questions asked!</p>
+          </div>
+          <canvas id="scratch-1" class="scratch-canvas absolute inset-0 w-full h-full z-10"></canvas>
+        </div>
+
+        <div class="relative h-28 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-between px-5 shadow-inner overflow-hidden">
+          <div class="text-left">
+            <span class="text-[9px] uppercase font-bold text-saffron tracking-wider">Coupon #2</span>
+            <h3 class="font-serif font-bold text-base text-stone-800">Mummy Ki Daant Se Bachao 🛡️</h3>
+            <p class="text-[11px] text-stone-500">I will take 100% blame on myself.</p>
+          </div>
+          <canvas id="scratch-2" class="scratch-canvas absolute inset-0 w-full h-full z-10"></canvas>
+        </div>
+
+        <div class="relative h-28 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-between px-5 shadow-inner overflow-hidden">
+          <div class="text-left">
+            <span class="text-[9px] uppercase font-bold text-saffron tracking-wider">Coupon #3</span>
+            <h3 class="font-serif font-bold text-base text-stone-800">Unlimited Shopping Trip 🛍️</h3>
+            <p class="text-[11px] text-stone-500">Your cart, my payment! Ready anytime.</p>
+          </div>
+          <canvas id="scratch-3" class="scratch-canvas absolute inset-0 w-full h-full z-10"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. EMOTIONAL NOTE -->
+    <section class="my-10 px-6">
+      <div class="bg-[#fff9ef] p-6 rounded-3xl border-2 border-dashed border-festiveGold/60 relative">
+        <h3 class="font-festive text-xl text-crimson text-center font-bold">Meri Pyaari Behen ke Naam</h3>
+        <div class="font-serif text-xs text-stone-700 leading-relaxed mt-4 space-y-3">
+          <p>Chahe hum din bhar ladte rahein, par sach yeh hai ki tere bina ghar bilkul adhoora lagta hai. Jab tu hasti hai toh sab theek lagta hai.</p>
+          <p>Rakhi sirf ek dhaaga nahi hai, yeh mera promise hai ki chahe zindagi me koi bhi mod aaye, tera bhai hamesha tere peeche ek dhaal banke khada rahega.</p>
+          <p class="font-script text-2xl text-saffron text-right pt-2">Tera Sabse Best Bhai ❤️</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. SHAGUN LIFAFA -->
+    <section class="my-10 px-6 text-center">
+      <div class="bg-gradient-to-br from-crimson to-red-950 text-white p-7 rounded-3xl shadow-2xl relative overflow-hidden">
+        <span class="text-xs uppercase tracking-[0.25em] text-festiveGold font-bold">Rakhi Shagun</span>
+        <h2 class="font-festive text-2xl text-white font-bold mt-1 mb-2">Claim Your Shagun Lifafa 💌</h2>
+        <p class="text-xs text-stone-300 mb-6">Rakhi baandhi hai toh shagun toh banta hai na!</p>
+
+        <button onclick="revealShagun()" id="claim-shagun-btn" class="w-full py-4 bg-gradient-to-r from-festiveGold via-yellow-400 to-festiveGold text-crimson font-bold text-sm uppercase tracking-widest rounded-2xl shadow-xl hover:brightness-105 active:scale-95 transition-all">
+          Open Shagun Lifafa 🎁
+        </button>
+
+        <div id="shagun-revealed" class="hidden mt-6 pt-6 border-t border-white/20">
+          <div class="bg-white text-stone-800 p-5 rounded-2xl shadow-lg">
+            <span class="text-[10px] uppercase font-bold text-saffron tracking-widest">Shagun Amount</span>
+            <div class="font-serif text-3xl font-bold text-crimson my-1">₹ 2,100 /-</div>
+            <p class="text-[11px] text-stone-500 mb-4">Transferring straight with lots of love!</p>
+
+            <a href="upi://pay?pa=yourupi@okhdfcbank&pn=Bhai&am=2100&cu=INR" class="inline-flex items-center justify-center w-full py-3 bg-emerald-600 text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow hover:bg-emerald-700">
+              Claim Via GPay / UPI 💰
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="text-center pt-4 pb-12 px-6 border-t border-stone-200/60">
+      <h4 class="font-festive text-2xl text-crimson">Happy Rakhi Behna!</h4>
+      <p class="text-[10px] font-cinzel tracking-widest text-stone-400 mt-1 uppercase">#AlwaysYourProtector • 2026</p>
+    </footer>
+  </main>
+
+  <script>
+    /* 1. OPEN GIFT HANDLER */
+    function openGift() {
+      const screen = document.getElementById('welcome-screen');
+      if (screen) {
+        screen.style.opacity = '0';
+        screen.style.pointerEvents = 'none';
+        setTimeout(() => { screen.style.display = 'none'; }, 600);
+      }
+      try {
+        if (typeof confetti === 'function') {
+          confetti({ particleCount: 90, spread: 70, origin: { y: 0.6 } });
+        }
+      } catch (e) {}
+
+      try {
+        const audio = document.getElementById('bg-audio');
+        if (audio) audio.play().catch(() => {});
+      } catch (e) {}
+    }
+
+    /* 2. AUDIO TOGGLE */
+    let isPlaying = false;
+    function toggleAudio() {
+      const audio = document.getElementById('bg-audio');
+      if (!audio) return;
+      if (isPlaying) {
+        audio.pause();
+        isPlaying = false;
+      } else {
+        audio.play().catch(() => {});
+        isPlaying = true;
+      }
+    }
+
+    /* 3. TIE RAKHI */
+    function tieRakhiAction() {
+      const rakhi = document.getElementById('rakhi-element');
+      const status = document.getElementById('rakhi-status');
+      const btn = document.getElementById('tie-rakhi-btn');
+      
+      if (rakhi) {
+        rakhi.style.transform = 'scale(1.2) rotate(10deg)';
+        setTimeout(() => { rakhi.style.transform = 'scale(1.05)'; }, 400);
+      }
+      if (status) status.classList.remove('hidden');
+      if (btn) {
+        btn.innerText = 'Rakhi Tied! ❤️';
+        btn.classList.replace('bg-crimson', 'bg-emerald-700');
+      }
+      try {
+        if (typeof confetti === 'function') {
+          confetti({ particleCount: 70, spread: 80, origin: { y: 0.4 } });
+        }
+      } catch(e) {}
+    }
+
+    /* 4. MEMORIES CAROUSEL */
+    const memories = [
+      {
+        url: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=700&q=80",
+        tag: "Partner in crime since day 1 🤜🤛",
+        desc: "Chahe kitni bhi ladai ho, aakhiri me pizza ka aakhri slice tumhe hi deta hoon."
+      },
+      {
+        url: "https://images.unsplash.com/photo-1506869640319-fe1a24fd76dc?auto=format&fit=crop&w=700&q=80",
+        tag: "Unfiltered smiles & silly faces 📸",
+        desc: "Saare secrets safe rakhne ka theka bas hum dono ke paas hai."
+      }
+    ];
+    let memIdx = 0;
+    function showMemory(i) {
+      memIdx = (i + memories.length) % memories.length;
+      const img = document.getElementById('memory-img');
+      const tag = document.getElementById('memory-tag');
+      const desc = document.getElementById('memory-desc');
+      if (img) img.src = memories[memIdx].url;
+      if (tag) tag.innerText = memories[memIdx].tag;
+      if (desc) desc.innerText = memories[memIdx].desc;
+    }
+    function nextMemory() { showMemory(memIdx + 1); }
+    function prevMemory() { showMemory(memIdx - 1); }
+
+    /* 5. SCRATCH CARD */
+    function setupScratch(id) {
+      const c = document.getElementById(id);
+      if (!c) return;
+      const ctx = c.getContext('2d');
+      c.width = c.parentElement.clientWidth;
+      c.height = c.parentElement.clientHeight;
+
+      const g = ctx.createLinearGradient(0, 0, c.width, c.height);
+      g.addColorStop(0, '#d4af37');
+      g.addColorStop(1, '#f59e0b');
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, c.width, c.height);
+      ctx.fillStyle = '#880826';
+      ctx.font = 'bold 12px Montserrat, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('SCRATCH TO REVEAL 🎁', c.width/2, c.height/2);
+
+      let drawing = false;
+      function scratch(x, y) {
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.beginPath();
+        ctx.arc(x, y, 16, 0, Math.PI*2);
+        ctx.fill();
+      }
+      c.addEventListener('touchstart', (e) => { drawing = true; const r = c.getBoundingClientRect(); scratch(e.touches[0].clientX - r.left, e.touches[0].clientY - r.top); });
+      c.addEventListener('touchmove', (e) => { if (!drawing) return; e.preventDefault(); const r = c.getBoundingClientRect(); scratch(e.touches[0].clientX - r.left, e.touches[0].clientY - r.top); });
+      c.addEventListener('touchend', () => { drawing = false; });
+      c.addEventListener('mousedown', (e) => { drawing = true; scratch(e.offsetX, e.offsetY); });
+      c.addEventListener('mousemove', (e) => { if (drawing) scratch(e.offsetX, e.offsetY); });
+      window.addEventListener('mouseup', () => { drawing = false; });
+    }
+    window.addEventListener('load', () => {
+      setupScratch('scratch-1');
+      setupScratch('scratch-2');
+      setupScratch('scratch-3');
+    });
+
+    /* 6. REVEAL SHAGUN */
+    function revealShagun() {
+      document.getElementById('shagun-revealed').classList.remove('hidden');
+      document.getElementById('claim-shagun-btn').classList.add('hidden');
+      try {
+        if (typeof confetti === 'function') confetti({ particleCount: 90, spread: 80, origin: { y: 0.7 } });
+      } catch(e) {}
+    }
+
+    /* 7. FLOATING PARTICLES */
+    const canvas = document.getElementById('festive-canvas');
+    if (canv
